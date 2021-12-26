@@ -1,0 +1,237 @@
+.header {
+  background-color: rgba(255, 255, 255, 0.466);
+  z-index: 999;
+  width: 100%;
+  position: fixed;
+}
+
+.header .all {
+  margin-top: 15px;
+  position: relative;
+}
+
+.header .all .first .icons .facebook {
+  padding: 10px 13px;
+}
+
+.header .all .first .icons i {
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  font-size: 15px;
+  padding: 10px;
+  background-color: #883D87;
+  color: white;
+  border-radius: 8mm;
+  cursor: pointer;
+}
+
+.header .all .first .icons i:hover {
+  background-color: white;
+  color: #883D87;
+}
+
+.header .all .second .logo {
+  margin-left: 80px;
+}
+
+.header .all .second .logo img {
+  width: 150px;
+  height: 100%;
+}
+
+.header .all .third .phone a {
+  border-radius: 50px;
+  padding: 10px 10px;
+  color: white;
+  border: 3px white solid;
+}
+
+.header .all .third .phone .phone-icon {
+  border-radius: 8mm;
+  background-color: #883D87;
+  color: white;
+  padding: 10px;
+  margin-left: 10px;
+}
+
+.header.active {
+  background-color: white;
+}
+
+.header.active .all .first .icons i:hover {
+  background-color: black;
+  color: white;
+}
+
+.header.active .all .phone a {
+  color: black;
+  border: 3px solid black;
+}
+
+.header.active .all .phone .phone-icon {
+  color: white;
+  background-color: black;
+}
+
+.header-respons {
+  background-color: white;
+  z-index: 999;
+  display: none;
+  width: 100%;
+  position: fixed;
+}
+
+.header-respons .all {
+  margin-top: 15px;
+  position: relative;
+}
+
+.header-respons .all .second .logo img {
+  width: 150px;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.cards {
+  -webkit-transform: translateY(-50px);
+          transform: translateY(-50px);
+}
+
+.cards .all .box {
+  position: relative;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 30px 0;
+  width: 100%;
+  text-transform: uppercase;
+  background-color: #FBA939;
+}
+
+.cards .all .box .line {
+  padding: 0;
+  width: 3px;
+  height: 46px;
+  background-color: blue;
+}
+
+.cards .all .box .text {
+  color: white;
+}
+
+.cards .all .box .button a {
+  border-radius: 10px;
+  padding: 20px 60px;
+  color: white;
+  background-color: blue;
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+  font-weight: 500;
+}
+
+.cards .all .box .button a:hover {
+  background-color: white;
+  color: blue;
+}
+
+@media (max-width: 992px) {
+  .header {
+    display: none;
+  }
+  .header-respons {
+    display: block;
+  }
+  .cards .all .box .text {
+    margin-bottom: 30px;
+  }
+}
+
+.special-deals .text {
+  color: #000243;
+}
+
+.card-swipper {
+  background: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.swiper {
+  width: 240px;
+  height: 380px;
+}
+
+.swiper-slide {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  border-radius: 18px;
+  left: 0;
+  position: absolute;
+}
+
+.swiper-slide img {
+  fill: white;
+  margin-top: 30px;
+  width: 150px;
+}
+
+.swiper-slide:nth-child(1) {
+  background-color: #151a27;
+}
+
+.swiper-slide:nth-child(2) {
+  background-color: #1500a1;
+}
+
+.swiper-slide:nth-child(3) {
+  background-color: #1d2333;
+}
+
+.our-teachers {
+  margin-top: 50px;
+  background-image: url(http://html.berserk.nikadevs.com/img/demo_travel_agency/1920x820_1.jpg);
+  background-size: cover;
+  width: 100%;
+  position: relative;
+}
+
+.our-teachers .brk-abs-bg-overlay, .our-teachers .brk-abs-img, .our-teachers .brk-abs-overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.our-teachers .brk-base-gradient-34 {
+  background-color: rgba(0, 2, 67, 0.411);
+}
+
+.our-teachers .all .teachers .box {
+  z-index: 99;
+}
+
+.our-teachers .all .teachers .box img {
+  width: 100%;
+  height: 500px;
+}
+
+.our-teachers .all .teachers .box .text {
+  background-color: white;
+  padding: 10px 0;
+}
+/*# sourceMappingURL=main.css.map */

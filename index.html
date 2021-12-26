@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="vendors/bootstrap.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+    <title>Document</title>
+    <style>
+    body{
+    overflow-x: hidden;
+}
+    @import url("https://fonts.googleapis.com/css?family=Lora:700");
+        @import url("https://fonts.googleapis.com/css?family=Open+Sans");
+        :root {
+          --z-distance:8.519vw;
+          --from-left:1;
+          --mobile-bkp:650px;
+        }
+        
+        * {
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+          box-sizing: border-box;
+        }
+        *::before, *::after {
+          box-sizing: border-box;
+        }
+        
+        body {
+          min-height: 100vh;
+          margin: 0;
+          padding: 0;
+      
+          font-family: Lora, serif;
+          font-size: calc(14px + .3vw);
+        }
+        
+        .slider {
+          width: 100vw;
+          height: 100vh;
+          display: flex;
+          perspective: 1000px;
+          transform-style: preserve-3d;
+        }
+        .slider::before, .slider::after {
+          content: "";
+          left: -1vw;
+          top: -1vh;
+          display: block;
+          position: absolute;
+          width: 102vw;
+          height: 102vh;
+          background-position: center;
+          background-size: cover;
+          will-change: opacity;
+          z-index: -1;
+          box-shadow: 0 0 0 50vmax rgba(0, 0, 0, 0.7) inset;
+        }
+        .slider::before {
+          background-image: var(--img-prev);
+        }
+        .slider::after {
+          transition: opacity 0.7s;
+          opacity: 0;
+          background-image: var(--img-next);
+        }
+        
+        .slider--bg-next::after {
+          opacity: 1;
+        }
+        
+        .slider__content {
+          margin: auto;
+          width: 65vw;
+          height: 32.5vw;
+          max-height: 60vh;
+          will-change: transform;
+          transform-style: preserve-3d;
+          pointer-events: none;
+          transform: translateZ(var(--z-distance));
+        }
+        
+        .slider__images {
+          overflow: hidden;
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          z-index: 0;
+          box-shadow: 0 0 5em #000;
+        }
+        
+        .slider__images-item {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 100%;
+          will-change: transform;
+          transition-timing-function: ease-in;
+          visibility: hidden;
+        }
+        .slider__images-item img {
+          display: block;
+          position: relative;
+          left: -1em;
+          top: -1em;
+          width: calc(100% + 1em * 2);
+          height: calc(100% + 1em * 2);
+          -o-object-fit: cover;
+             object-fit: cover;
+          will-change: transform;
+        }
+        
+        .slider__images-item--active {
+          z-index: 20;
+          visibility: visible;
+        }
+        
+        .slider__images-item--subactive {
+          z-index: 15;
+          visibility: visible;
+        }
+        
+        .slider__images-item--next {
+          transform: translateX(100%);
+        }
+        
+        .slider__images-item--prev {
+          transform: translateX(-100%);
+        }
+        
+        .slider__images-item--transit {
+          transition: transform 0.7s, opacity 0.7s;
+        }
+        
+        .slider__text {
+          position: relative;
+          height: 100%;
+        }
+        
+        .slider__text-item {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          padding: 0.5em;
+          perspective: 1000px;
+          transform-style: preserve-3d;
+        }
+        .slider__text-item > * {
+          overflow: hidden;
+          position: absolute;
+        }
+        .slider__text-item h3, .slider__text-item p {
+          transition: transform 0.35s ease-out;
+          line-height: 1.5;
+          overflow: hidden;
+        }
+        .slider__text-item h3 {
+          background-color: rgba(255, 255, 255, 0.5);
+        }
+        .slider__text-item p {
+          font-family: "Open Sans", sans-serif;
+          padding: 1em;
+          color: white;
+          text-align: center;
+          background-color: rgba(0, 0, 0, 0.5);
+        }
+        .slider__text-item h3::before, .slider__text-item p::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 105%;
+          height: 100%;
+          transform: translateX(0);
+          transition: transform 0.35s ease-out 0.28s;
+        }
+        .slider__text-item h3::before {
+          background-color: #000;
+        }
+        .slider__text-item p::before {
+          background-color: #fff;
+        }
+        .slider__text-item h3 {
+          margin: 0;
+          font-size: 3.5em;
+          padding: 0 0.3em;
+          position: relative;
+          font-weight: 700;
+          transform: translateX(-100%);
+        }
+        .slider__text-item p {
+          margin: 0;
+          transform: translateX(100%);
+        }
+        
+        .slider__text-item-head {
+          top: -0.5em;
+          transform: translateZ(3em);
+        }
+        
+        .slider__text-item-info {
+          bottom: 0;
+          right: 0;
+          max-width: 75%;
+          min-width: -webkit-min-content;
+          min-width: -moz-min-content;
+          min-width: min-content;
+          transform: translateZ(2em);
+        }
+        
+        .slider__text-item--active h3, .slider__text-item--active p {
+          transform: translateX(0);
+        }
+        .slider__text-item--active h3::before {
+          transform: translateX(102%);
+        }
+        .slider__text-item--active p::before {
+          transform: translateX(-102%);
+        }
+        
+        .slider__text-item--backwards h3::before, .slider__text-item--backwards p::before {
+          transition: transform 0.35s ease-in;
+        }
+        .slider__text-item--backwards h3, .slider__text-item--backwards p {
+          transition: transform 0.35s ease-in 0.35s;
+        }
+        
+        .slider__nav {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          text-align: center;
+        }
+        
+        .slider__nav-arrows {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+        
+        .slider__nav-arrow {
+          height: 100vh;
+          width: 50vw;
+          text-indent: -9999px;
+          white-space: nowrap;
+        }
+        
+        .slider__nav-arrow--left {
+          --arrow:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 4 4'%3E %3Cpolyline points='3 1 1 2 3 3' stroke='white' stroke-width='.3' stroke-opacity='.5' fill='none'%3E%3C/polyline%3E %3C/svg%3E");
+          cursor: var(--arrow) 40 40, auto;
+        }
+        
+        .slider__nav-arrow--right {
+          --arrow:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 4 4'%3E %3Cpolyline points='1 1 3 2 1 3' stroke='white' stroke-width='.3' stroke-opacity='.5' fill='none'%3E%3C/polyline%3E %3C/svg%3E");
+          cursor: var(--arrow) 40 40, auto;
+        }
+        
+        .slider__nav-dots {
+          margin-top: 88vh;
+          display: inline-flex;
+          position: relative;
+          padding: 1em;
+          pointer-events: none;
+        }
+        .slider__nav-dots::before {
+          content: "";
+          position: absolute;
+          left: calc(1em + 1em + 2px);
+          top: calc(1em + 2px);
+          width: calc(1em - 2px * 2);
+          height: calc(1em / 2 - 2px * 2);
+          background-color: rgba(255, 255, 255, 0.9);
+          transition: transform 0.7s ease-out;
+          transform: translateX(calc((1em + 1em * 2) * (var(--from-left) - 1)));
+        }
+        
+        .slider__nav-dot {
+          margin: 0 1em;
+          width: 1em;
+          height: 0.5em;
+          border: 2px solid rgba(255, 255, 255, 0.5);
+          cursor: crosshair;
+          pointer-events: all;
+          display: inline-block;
+        }
+        .slider__nav-dot:hover {
+          border-color: rgba(255, 255, 255, 0.7);
+        }
+        .slider__nav-dot:active {
+          border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        @media only screen and (max-width: 650px) {
+          .slider::before, .slider::after {
+            display: none;
+          }
+        
+          .slider__content {
+            width: 100vw;
+            height: 100vh;
+            max-height: 100vh;
+          }
+        
+          .slider__text-item-info {
+            bottom: 50%;
+            left: 50%;
+            transform: translate(-50%, 50%);
+          }
+          .slider__text-item-info p {
+            padding: 1em 0.8em;
+          }
+        
+          .slider__text-item-head {
+            top: 5vh;
+            left: 10vw;
+            transform: translateZ(0);
+          }
+          .slider__text-item-head h3 {
+            font-size: 2.5em;
+          }
+        
+          .slider__nav-dots {
+            background-color: rgba(0, 0, 0, 0.3);
+          }
+        
+          .slider__nav-arrow {
+            width: 10vw;
+            position: relative;
+            cursor: auto;
+          }
+          .slider__nav-arrow:active {
+            filter: brightness(0.5);
+          }
+          .slider__nav-arrow::before {
+            content: "";
+            background-image: var(--arrow);
+            background-size: cover;
+            width: 8vw;
+            height: 8vw;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+        
+          .slider__nav-arrow--left {
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7) 0, transparent 100%);
+          }
+          .slider__nav-arrow--left:active {
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.9) 0, transparent 100%);
+          }
+        
+          .slider__nav-arrow--right {
+            background-image: linear-gradient(to left, rgba(0, 0, 0, 0.7) 0, transparent 100%);
+          }
+          .slider__nav-arrow--right:active {
+            background-image: linear-gradient(to left, rgba(0, 0, 0, 0.9) 0, transparent 100%);
+          }
+        }/*# sourceMappingURL=style.css.map */</style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="all">
+                <div class="d-flex justify-content-between">
+                    <div class="first">
+                        <div class="icons">
+                            <i class="fab fa-facebook-f facebook"></i>
+                            <i class="fab fa-instagram"></i>
+                            <i class="fab fa-twitter"></i>
+                            <i class="fab fa-linkedin-in"></i>
+                        </div>
+                    </div>
+                    <div class="second">
+                        <div class="logo">
+                            <img  src="https://cdn.freelogovectors.net/wp-content/uploads/2021/08/attackontitanlogo-freelogovectors.net_.png" alt="">
+                        </div>
+                    </div>
+                    <div class="third d-flex">
+                        <div class="phone">
+                            <a href="">+994 77 310 27-21 <i class="fas fa-phone phone-icon"></i> </a>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <header class="header-respons">
+        <div class="container">
+            <div class="all">
+                <div class="d-flex justify-content-center">
+                    <div class="first">
+                        
+                    </div>
+                    <div class="second">
+                        <div class="logo">
+                            <img  src="https://ishtap.az/storage/uploads/1612288190-bt40Pr7M6h7hal4wG1gOaKYXYna2ZcUtL15icXSrN3pIL6Bu8UKWFm9WzbCn/$_100.png" alt="">
+                        </div>
+                    </div>
+                  
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="slider">
+        <div class="slider" id="slider" style="--img-prev:url(https://lh3.googleusercontent.com/aC9nyW5dhaYFmWD8fcf8DApjpH08eHEkbCHqmUPHRQ5T3jK-QyNKZYVMehmrvyPdEA_KxWvgZ3_kyOOYOAv99Ow3UoKSvEloleVKGSfLOwOyDV3Q6Dwi1G-NYoa9-t_ofmmskE6BYnVIOnIz2HWlMcijzIEwvKAL_R4z63DaLgG0z_OcGiSQHunwGAPXrBQUv42ZXuIMODq4zxDHczSxJ72b0-_udtdQK3JuT2X8nXCwFoF7GxmOpzXS0H5f50DuCbXoXcx-O7bgBMCXZdMpTxB27-wdXeLmxpYUySXgjSN2NAKmK16DmGLYvw5tMlrqwb8h4MJEEbXjP1pjPxXsahb7UZseEGyn80uLjATANJvusyJWCtzkkxYXPz-yI1rDvfEJKe2eyA-5AvFlzFBSwBMASn8f7mXinUrXMMREkJQjoi89NfZ91G7253OEVQOqcWxddiYtcHCO5v6Pl3QfV2SUTWXgggscDSY2ezjSPpYERNTXnIM_aCyWmIG7ybrfqOB0eVYBAgynyuPVbjd4KuZWZq2Dfu33HX1RuPKglbOuZGD1QbpJnruvUVkAmjDXI40ENN7X=w1600-h766);">
+            <div class="slider__content" id="slider-content">
+                <div class="slider__images">
+                    <div class="slider__images-item slider__images-item--active" data-id="1"><img src="https://funilrys.com/user/pages/programming/javascript/javascript.png" /></div>
+                    <div class="slider__images-item" data-id="2"><img src="https://wallpapercave.com/wp/wp4325544.jpg" /></div>
+                    <div class="slider__images-item" data-id="3"><img src="https://colorlib.com/wp/wp-content/uploads/sites/2/creative-css3-tutorials.jpg" /></div>
+                    <div class="slider__images-item" data-id="4"><img src="https://miro.medium.com/max/2625/1*AeOmNaYA1IURQ1mPcWdmWA.png" /></div>
+                    <div class="slider__images-item" data-id="5"><img src="https://www.wallpaperuse.com/wallp/27-271794_m.jpg " /></div>
+                </div>
+                <div class="slider__text">
+                    <div class="slider__text-item slider__text-item--active" data-id="1">
+                        <div class="slider__text-item-head">
+                            <h3>JavaScript</h3>
+                        </div>
+                        <div class="slider__text-item-info">
+                            <p>“Java script is for funcionality of the website ”</p>
+                        </div>
+                    </div>
+                    <div class="slider__text-item" data-id="2">
+                        <div class="slider__text-item-head">
+                            <h3>HTML</h3>
+                        </div>
+                        <div class="slider__text-item-info">
+                            <p>“HTML is the skeleton of the website and sabina is best ”</p>
+                        </div>
+                    </div>
+                    <div class="slider__text-item" data-id="3">
+                        <div class="slider__text-item-head">
+                            <h3>CSS</h3>
+                        </div>
+                        <div class="slider__text-item-info">
+                            <p>“CSS is the look of the website more u code more it looks better! like sabina.”</p>
+                        </div>
+                    </div>
+                    <div class="slider__text-item" data-id="4">
+                        <div class="slider__text-item-head">
+                            <h3>C#</h3>
+                        </div>
+                        <div class="slider__text-item-info">
+                            <p>"Sabina's hair > C#”</p>
+                        </div>
+                    </div>
+                    <div class="slider__text-item" data-id="5">
+                        <div class="slider__text-item-head">
+                            <h3>SQL</h3>
+                        </div>
+                        <div class="slider__text-item-info">
+                            <p>“Server where i save my hentai photos”</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slider__nav">
+                <div class="slider__nav-arrows">
+                    <div class="slider__nav-arrow slider__nav-arrow--left" id="left">to left</div>
+                    <div class="slider__nav-arrow slider__nav-arrow--right" id="right">to right</div>
+                </div>
+                <div class="slider__nav-dots" id="slider-dots">
+                    
+
+    </section>
+    <section class="cards" >
+        <div class="container">
+            <div class="all d-flex justify-content-center">
+                <div class="box row text-center justify-content-center">
+                    <div class="line col-lg-2 "></div>
+                    <div class="text col-lg-6 col-12">
+                        <h3>call for action block heading </h3>
+                    </div>
+                    <div class="button col-lg-4  col-12">
+                        <a href="#">let's get started</a>    
+                    </div>                
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+    <section class="special-deals">
+
+        <div class="container">
+            <div class="all ">
+                <div class="text text-center">
+                    <h1>OUR FEATURES</h1>
+                </div>
+                <div class="card-swipper">
+                  <div class="swiper">
+                      <!-- Additional required wrapper -->
+                      <div class="swiper-wrapper">
+                        <!-- Slides -->
+                        <div class="swiper-slide">
+                            <div class="container">
+                              <div class="all">
+                                  <img  src="https://ishtap.az/storage/uploads/1612288190-bt40Pr7M6h7hal4wG1gOaKYXYna2ZcUtL15icXSrN3pIL6Bu8UKWFm9WzbCn/$_100.png" alt="">
+                                  <h4>Easy To use</h4>
+                                  <p>U can watch whatever lesson u want from ur website</p>
+                                </div>
+                            </div>
+                          
+                        </div>
+                        <div class="swiper-slide">
+                          <div class="container">
+                              <div class="all">
+                                  <img  src="https://ishtap.az/storage/uploads/1612288190-bt40Pr7M6h7hal4wG1gOaKYXYna2ZcUtL15icXSrN3pIL6Bu8UKWFm9WzbCn/$_100.png" alt="">
+                                  <h4>full-stack in 10 month</h4>
+                                  <p>u will be professianal full-stack developer in 10 month</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                          <div class="container">
+                              <div class="all">
+                                  <img  src="https://ishtap.az/storage/uploads/1612288190-bt40Pr7M6h7hal4wG1gOaKYXYna2ZcUtL15icXSrN3pIL6Bu8UKWFm9WzbCn/$_100.png" alt="">
+                                  <h4>Smort teachers</h4>
+                                  <p>our teachers who all have 7 year experince of programming will teach u best </p>
+                                </div>
+                            </div>    
+                        </div>
+                        ...
+                      </div>
+                    </div>
+                  
+              </div>
+
+                
+            </div>
+        </div>
+    </section>
+    <section class="our-teachers">
+    <span class="brk-abs-bg-overlay brk-base-gradient-34"></span>
+      <div class="container">
+        <div class="all">
+          <div class="text text-center">
+            <h1>OUR TEACHERS</h1>
+          </div>
+          <div class="teachers row">
+            <div class="col-lg-4">
+              <div class="box">
+                <img class="img-fluid" src="https://www.thewikifeed.com/wp-content/uploads/2020/12/peter-mckinnon-1-1.jpg" alt="">
+                <div class="text text-center">
+                  <h5>Peter</h5>
+                  <p>Peter is a senior front-end developer</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="box">
+              <img class="img-fluid" src="http://3.bp.blogspot.com/_s6gUTCWsr98/R48jvCEN0_I/AAAAAAAABmA/Ba4BVDjHojk/s400/Cihan+Demirci(%C3%87izim+Halil+Y%C4%B1ld%C4%B1r%C4%B1m-2008).jpg" alt="">
+              <div class="text text-center">
+                <h5>Miguel</h5>
+                <p>Miguel is a senior javascript developer</p>
+              </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="box">
+              <img class="img-fluid" src="https://cdn.pixabay.com/photo/2018/07/27/22/03/boy-3566903_960_720.jpg" alt="">
+              <div class="text text-center">
+                <h5>Alex</h5>
+                <p>Alex is a Good boi and back-end developer</p>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/slider.js"></script>
+<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".swiper",{
+            effect:"cards",
+            grabCursor: true,
+        })
+    </script>
+
+</body>
+</html>

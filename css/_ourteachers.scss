@@ -1,0 +1,35 @@
+.our-teachers{
+    margin-top :50px;
+    background-image: url(http://html.berserk.nikadevs.com/img/demo_travel_agency/1920x820_1.jpg);
+    background-size: cover;
+    width: 100%;
+    position: relative;
+    .brk-abs-bg-overlay, .brk-abs-img, .brk-abs-overlay {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+    }
+    .brk-base-gradient-34 {
+        background-color: rgba(0, 2, 67, 0.411);
+    }
+    .all{
+       
+        .teachers{
+           
+            .box{
+                z-index: 99;
+              img{
+                  width: 100%;
+                  height: 500px;
+              }
+              .text{
+                  background-color: white;
+                  padding: 10px 0;
+              }
+            }
+        }
+    }
+}

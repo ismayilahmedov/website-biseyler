@@ -1,0 +1,40 @@
+.cards{
+    transform: translateY(-50px);
+    .all{
+        .box{
+            position: relative;
+            .line{
+                padding: 0;
+                width: 3px;
+                height: 46px;
+                background-color: blue;
+            }
+            align-items: center;
+            padding: 30px 0;
+            width: 100%;
+            text-transform: uppercase;
+            background-color: #FBA939;
+            .text{
+                color: white;
+             
+            }
+            .button{
+                a{
+                
+                    border-radius: 10px;
+                    padding: 20px 60px;
+                    color: white;
+                    background-color: blue;
+                    transition: 0.2s ease-in-out;
+                    font-weight: 500;
+                    &:hover{
+                        background-color: white;
+                        color: blue;
+                        
+                    }
+                }
+            }
+    
+        }
+    }
+}
